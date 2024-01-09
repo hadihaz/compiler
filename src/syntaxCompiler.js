@@ -18,7 +18,6 @@ function syntaxCompiler(tokenlist) {
   tokens.push(...tokenlist);
   lookahead = tokens[i];
   BASE();
-  // console.log(i, tokens.length - 1, Accept);
   if (i >= tokens.length - 1 || Accept == false) {
     console.log(Accept,"=>",code);
     code = "";
@@ -28,14 +27,11 @@ function syntaxCompiler(tokenlist) {
     code = "";
     syntaxCompiler(tokenlist);
   }
-  // console.log(Accept,"=>",code);
   code = "";
   return Accept;
 }
 
 function match(symbol) {
-  // console.log(lookahead);
-
   if (lookahead === symbol) {
     code = code + " " + lookahead;
     i++;

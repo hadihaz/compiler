@@ -9,17 +9,12 @@ code = lexims.map((lexim) => {
 });
 tokens = compile(code);
 
-const save = (tokenList, idList) => {
-  write(tokenList.join("\n"), "../token.txt");
-  // write(JSON.stringify(idList), "../tokens/id.json");
-  // write(tokenList.join(" "), "../tokens/compiled.txt");
-};
 if (tokens) {
-  save(tokens.tokenList);
+  write(tokens.join("\n"), "../token.txt");
 }
-let compiled=tokens.tokenList.join(" ");
-
-let result = syntaxCompiler(compiled.split(" "));
+let tokensToString=tokens.join(" ");
+let tokenList=tokensToString.split(" ")
+let result = syntaxCompiler(tokenList);
 
 if (result)console.log("Accepted")
 else console.log("Rejected")
