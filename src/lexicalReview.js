@@ -353,18 +353,12 @@ const lexicalReview = (lexim, line) => {
   else if (char5(lexim, "float")) return "float";
   else if (char4(lexim, "true")) return "true";
   else if (char5(lexim, "false")) return "false";
-  // else if (variableID(lexim)) return "VAR_" + lexim;
-  // else if (functionID(lexim)) return "FUNC_" + lexim;
-  // else if (intNumber(lexim)) return "INT_" + lexim;
-  // else if (floatNumber(lexim)) return "FLOAT_" + lexim;
-  // else if (string(lexim)) return "STR_" + lexim;
   else if (variableID(lexim)) return "id";
   else if (functionID(lexim)) return "id";
   else if (intNumber(lexim)) return "number";
   else if (floatNumber(lexim)) return "number";
   else if (string(lexim)) return "number";
   console.log(`ERROR!: this lexim(${lexim})in line ${line} is not Defined`);
-  // return "ERROR_" + lexim;
   return "ERROR";
 };
 
