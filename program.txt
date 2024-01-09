@@ -1,0 +1,12 @@
+int : @num1 => 25
+int : @num2 => 21
+
+do ( @aa , @bb ) $funcname { 
+
+    this? [!=] ( @aa , @bb ) play {
+        @aa => @bb
+    }
+}
+
+run ( @num1 , @num2 ) $funcname
+ 

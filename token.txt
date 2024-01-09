@@ -1,0 +1,8 @@
+int : id => number
+int : id => number
+do ( id , id ) id {
+this? [!=] ( id , id ) play {
+id => id
+}
+}
+run ( id , id ) id
