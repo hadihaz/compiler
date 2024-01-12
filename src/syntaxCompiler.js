@@ -26,13 +26,11 @@ function syntaxCompiler(tokenlist, codesList) {
       return list.split(" ");
     }),
   ];
-  // console.log(codes);
   tokens.push(...tokenlist);
   if (tokens.includes("ERROR")) {
     return false;
   }
   lookahead = tokens[i];
-  // BASE();
   SYNTAX();
   return Accept;
 }
@@ -47,27 +45,6 @@ function match(symbol) {
   }
 }
 
-// const BASE = () => {
-//   if (
-//     lookahead == "this?" ||
-//     lookahead == "loop" ||
-//     lookahead == "until" ||
-//     lookahead == "do" ||
-//     lookahead == "run"
-//   ) {
-//     SYNTAX();
-//     BASE();
-//   } else if (
-//     lookahead == "int" ||
-//     lookahead == "str" ||
-//     lookahead == "float" ||
-//     lookahead == "id"
-//   ) {
-//     ASSIGNMENT();
-//     BASE();
-//   }
-// };
-
 const SYNTAX = () => {
   switch (lookahead) {
     case "this?":
@@ -75,7 +52,6 @@ const SYNTAX = () => {
       CONDITION();
       match("play");
       match("{");
-      // BASE();
       SYNTAX();
       match("}");
       ELSE();
@@ -85,7 +61,6 @@ const SYNTAX = () => {
       match("loop");
       CONDITION();
       match("{");
-      // BASE();
       SYNTAX();
       match("}");
       SYNTAX();
@@ -98,7 +73,6 @@ const SYNTAX = () => {
       match(">>");
       OPERATION();
       match("{");
-      // BASE();
       SYNTAX();
       match("}");
       SYNTAX();
@@ -110,7 +84,6 @@ const SYNTAX = () => {
       match(")");
       match("id");
       match("{");
-      // BASE();
       SYNTAX();
       match("}");
       SYNTAX();
@@ -136,10 +109,6 @@ const SYNTAX = () => {
       ASSIGNMENT();
       SYNTAX();
       break;
-
-    // default:
-    //   Accept = false;
-    //   checkResult();
   }
 };
 const FUNCINPUT = () => {
@@ -325,10 +294,6 @@ const ASSIGNMENT = () => {
     case "id":
       A();
       break;
-
-    // default:
-    //   Accept = false;
-    //   checkResult();
   }
 };
 const A = () => {
