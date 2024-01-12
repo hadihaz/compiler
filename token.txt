@@ -1,6 +1,6 @@
 int : id => number
 int : id => number
-float : id => [+] ( id , [+] ( id , number ) )
+float : id => [-] ( id , [+] ( id , number ) )
 this? [>] ( id , id ) play {
 int : id => number
 } thence? [>] ( id , id ) play {
@@ -9,10 +9,11 @@ float : id => [+] ( id , [+] ( id , number ) )
 loop [<] ( id , [+] ( id , id ) ) {
 int : id => number
 }
-until [<] ( id , id ) >> int : id => id >> [+] ( id ) {
+until [<] ( id , [<] ( id , id ) ) >> int : id => id >> [+] ( id ) {
 int : id => number
 }
 }
-do ( id , id ) id {
+do ( id , id , number , number ) id {
 int : id => number
 }
+run ( id , id ) id

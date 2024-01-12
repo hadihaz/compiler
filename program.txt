@@ -1,7 +1,7 @@
 int : @name1 => 4564564
 int : @name => 123 
 
-float : @name => [+] ( @name1 , [+] ( @name1 , 14 ) ) 
+float : @name => [-] ( @name1 , [+] ( @name1 , 14 ) ) 
 
 this? [>] ( @aa , @Ab ) play {
     int : @name => 123 
@@ -12,12 +12,12 @@ this? [>] ( @aa , @Ab ) play {
     loop [<] ( @ai , [+] ( @ai , @ya ) ) {
     int : @name => 123
     }
-    until [<] ( @ia , @ya ) >>  int : @ai => @name1  >> [+] ( @ai ) {
+    until [<] ( @ia , [<] ( @ia , @ya ) ) >>  int : @ai => @name1  >> [+] ( @ai ) {
     int : @name => 123
     }
 }
 
-do ( @ad , @bd ) $funcname {
+do ( @ad , @aa , "123" , 12.23  ) $funcname {
     int : @name => 123
 }
 
