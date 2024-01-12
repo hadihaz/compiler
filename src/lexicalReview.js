@@ -337,8 +337,8 @@ const lexicalReview = (lexim, line) => {
   else if (char1(lexim, "(")) return "(";
   else if (char1(lexim, ")")) return ")";
   else if (char1(lexim, ";")) return ";";
-  else if (char1(lexim, ">>")) return ">>";
-  //======
+  else if (char2(lexim, ">>")) return ">>";
+  //======  
   else if (char5(lexim, "this?")) return "this?";
   else if (char7(lexim, "thence?")) return "thence?";
   else if (char5(lexim, "noth?")) return "noth?";
@@ -358,7 +358,7 @@ const lexicalReview = (lexim, line) => {
   else if (intNumber(lexim)) return "number";
   else if (floatNumber(lexim)) return "number";
   else if (string(lexim)) return "number";
-  console.log(`ERROR!: this lexim(${lexim})in line ${line} is not Defined`);
+  console.log(`ERROR!: this lexim '${lexim}' in line ${line} is not Defined`);
   return "ERROR";
 };
 

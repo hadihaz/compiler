@@ -1,0 +1,40 @@
+SYNTAX ➜ this? CONDITION play { SYNTAX } ELSE SYNTAX |  
+loop CONDITION {SYNTAX} SYNTAX| 
+until CONDITION >> ASSIGNMENT >> OPERATION { SYNTAX } SYNTAX | 
+do ( FUNCINPUT ) id { SYNTAX } SYNTAX | run ( FUNCINPUT ) id SYNTAX |
+ASSIGNMENT SYNTAX | ε
+
+FUNCINPUT ➜ VALUE D | ε
+
+D ➜  , VALUE D | ε
+
+ELSE ➜ thence? CONDITION play {SYNTAX} ELSE | noth? play {SYNTAX} | ε
+
+CONDITION ➜ COMPARISON ( C , C) | true | false 
+
+C ➜ CONDITION | T 
+
+COMPARISON ➜ [!=] | [=] | [<] | [>] 
+
+VALUE ➜  id | number 
+
+ASSIGNMENT ➜ TYPE : A | A | ε
+
+A ➜ id => T
+
+TYPE ➜ int | str | float 
+
+OPERATION ➜ OPERATOR ( F )
+
+F ➜  T H | ε
+
+H ➜  , T H | ε
+
+OPERATOR ➜  [+] | [-] | [*] | [/]
+
+T ➜ VALUE | OPERATION
+
+
+
+
+

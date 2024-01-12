@@ -1,12 +1,24 @@
-int : @num1 => 25
-int : @num2 => 21
+int : @name1 => 4564564
+int : @name => 123 
 
-do ( @aa , @bb ) $funcname { 
+float : @name => [+] ( @name1 , [+] ( @name1 , 14 ) ) 
 
-    this? [!=] ( @aa , @bb ) play {
-        @aa => @bb
+this? [>] ( @aa , @Ab ) play {
+    int : @name => 123 
+
+} thence? [>] ( @aa , @ca ) play {
+    float : @name => [+] ( @name1 , [+] ( @name1 , 14 ) )   
+} noth? play {
+    loop [<] ( @ai , [+] ( @ai , @ya ) ) {
+    int : @name => 123
+    }
+    until [<] ( @ia , @ya ) >>  int : @ai => @name1  >> [+] ( @ai ) {
+    int : @name => 123
     }
 }
 
-run ( @num1 , @num2 ) $funcname
- 
+do ( @ad , @bd ) $funcname {
+    int : @name => 123
+}
+
+run ( @aa , @ba )   $funcname

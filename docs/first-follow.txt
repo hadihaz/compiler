@@ -1,0 +1,66 @@
+
+@FIRST(SYNTAX) = {this?, loop, until, do, run,FIRST(ASSIGNMENT), ε}= {this?, loop, until, do, run, id, int , str , float , ε}
+@FOLLOW(SYNTAX) =[ } ]
+
+@FIRST(ASSIGNMENT) ={FIRST(TYPE) ,FIRST(A) } = {id, int , str , float}
+@FOLLOW(ASSIGNMENT) = [FIRST(SYNTAX) . >> ] = [this?, loop, until, do, run, id, int , str , float . >> , FOLLOW(SYNTAX) ] = [this?, loop, until, do, run, id, int , str , float . >> , } ]
+
+@FIRST(FUNCINPUT) ={FIRST(VALUE),ε}= {id, number, ε}
+@FOLLOW(FUNCINPUT) = [)]
+
+@FIRST(D) = {',', ε}
+@FOLLOW(D) = [FOLLOW(FUNCINPUT)]=[)]
+
+@FIRST(ELSE) = {thence?, noth?, ε}
+@FOLLOW(ELSE) = [FOLLOW(SYNTAX)] =  [ } ]
+
+@FIRST(CONDITION) ={FIRST(COMPARISON),true, false} ={[!=] , [=] , [<] , [>], true, false}
+@FOLLOW(CONDITION) = [PLAY . { . >> .FOLLOW(C)]=[PLAY . { . >> . , . )]
+
+@FIRST(C) ={FIRST(CONDITION),FIRST(T)}= {id, number,[!=] , [=] , [<] , [>], true, false, [+] , [-] , [*] , [/]}
+@FOLLOW(C) =  [ , . )]
+
+@FIRST(COMPARISON) = {[!=] , [=] , [<] , [>]}
+@FOLLOW(COMPARISON) =  [ ( ]
+
+@FIRST(VALUE) = {id, number}
+@FOLLOW(VALUE) =  [ FOLLOW(T) . FOLLOW(D) ] = [} . >> . , . )]
+
+@FIRST(A) = {id}
+@FOLLOW(A) =  [FOLLOW(ASSIGNMENT)] = [ } . >> ]
+
+@FIRST(TYPE) = {int, str, float}
+@FOLLOW(TYPE) =  [ : ]
+
+@FIRST(OPERATION) ={FIRST(OPERATOR)}= {[+], [-], [/],[*]}
+@FOLLOW(OPERATION) = [ { . FOLLOW(T) ] = [ { . } . >> . , . )]
+
+@FIRST(OPERATOR) = {[+], [-], [/],[*]}
+@FOLLOW(OPERATOR) =  [ ( ]
+
+@FIRST(F) ={@FIRST(T), ε}= {id, number, [+], [-], [/],[*], ε}
+@FOLLOW(F) =  [ ) ]
+
+@FIRST(H)={',', ε}
+@FOLLOW(H) = [ FOLLOW(F) ] = [ ) ]
+
+@FIRST(T) ={FIRST(VALUE),FIRST(OPERATION)}= {id, number, [+], [-], [/],[*]}
+@FOLLOW(T) =  [ FOLLOW(H) . FOLLOW(A) . FOLLOW(C) ] = [ } . >> . , . ) ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

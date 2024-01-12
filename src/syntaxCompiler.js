@@ -2,38 +2,43 @@ let lookahead = "";
 let i = 0;
 const tokens = [];
 let Accept = true;
-let code = "";
+let printCode = false;
+let codes = [];
+let printLine = true;
 
-function checkResult(tokenlist = tokens) {
-  if (Accept == false) {
-    console.log(Accept,"=>",code);
-    code = "";
+function checkResult() {
+  if (!printCode) {
+    let count = 0;
+    codes.map((c) => {
+      count += c.length;
+      if (i <= count && printLine) {
+        console.log("  ", c.join(" "));
+        printLine = false;
+      }
+    });
+    console.log(`   SyntaxError: Unexpected identifier '${lookahead}'`);
+    printCode = !printCode;
+  }
+}
+function syntaxCompiler(tokenlist, codesList) {
+  codes = [
+    ...codesList.map((list) => {
+      return list.split(" ");
+    }),
+  ];
+  // console.log(codes);
+  tokens.push(...tokenlist);
+  if (tokens.includes("ERROR")) {
     return false;
   }
-
-  return syntaxCompiler(tokenlist);
-}
-function syntaxCompiler(tokenlist) {
-  tokens.splice(0, tokens.length);
-  tokens.push(...tokenlist);
   lookahead = tokens[i];
-  BASE();
-  if (i >= tokens.length - 1 || Accept == false) {
-    console.log(Accept,"=>",code);
-    code = "";
-    return Accept;
-  } else {
-    console.log(Accept,"=>",code);
-    code = "";
-    syntaxCompiler(tokenlist);
-  }
-  code = "";
+  // BASE();
+  SYNTAX();
   return Accept;
 }
 
 function match(symbol) {
   if (lookahead === symbol) {
-    code = code + " " + lookahead;
     i++;
     lookahead = tokens[i];
   } else {
@@ -42,27 +47,27 @@ function match(symbol) {
   }
 }
 
-const BASE = () => {
-  if (
-    lookahead == "this?" ||
-    lookahead == "loop" ||
-    lookahead == "until" ||
-    lookahead == "do" ||
-    lookahead == "run"
-  ) {
-    SYNTAX();
-  } else if (
-    lookahead == "int" ||
-    lookahead == "str" ||
-    lookahead == "float" ||
-    lookahead == "id"
-  ) {
-    ASSIGNMENT();
-  } else {
-    Accept = false;
-    checkResult();
-  }
-};
+// const BASE = () => {
+//   if (
+//     lookahead == "this?" ||
+//     lookahead == "loop" ||
+//     lookahead == "until" ||
+//     lookahead == "do" ||
+//     lookahead == "run"
+//   ) {
+//     SYNTAX();
+//     BASE();
+//   } else if (
+//     lookahead == "int" ||
+//     lookahead == "str" ||
+//     lookahead == "float" ||
+//     lookahead == "id"
+//   ) {
+//     ASSIGNMENT();
+//     BASE();
+//   }
+// };
+
 const SYNTAX = () => {
   switch (lookahead) {
     case "this?":
@@ -70,16 +75,20 @@ const SYNTAX = () => {
       CONDITION();
       match("play");
       match("{");
-      BASE();
+      // BASE();
+      SYNTAX();
       match("}");
       ELSE();
+      SYNTAX();
       break;
     case "loop":
       match("loop");
       CONDITION();
       match("{");
-      BASE();
+      // BASE();
+      SYNTAX();
       match("}");
+      SYNTAX();
       break;
     case "until":
       match("until");
@@ -89,8 +98,10 @@ const SYNTAX = () => {
       match(">>");
       OPERATION();
       match("{");
-      BASE();
+      // BASE();
+      SYNTAX();
       match("}");
+      SYNTAX();
       break;
     case "do":
       match("do");
@@ -99,8 +110,10 @@ const SYNTAX = () => {
       match(")");
       match("id");
       match("{");
-      BASE();
+      // BASE();
+      SYNTAX();
       match("}");
+      SYNTAX();
       break;
     case "run":
       match("run");
@@ -108,10 +121,25 @@ const SYNTAX = () => {
       FUNCINPUT();
       match(")");
       match("id");
+      SYNTAX();
       break;
-    default:
-      Accept = false;
-      checkResult();
+    case "int":
+      ASSIGNMENT();
+      SYNTAX();
+    case "str":
+      ASSIGNMENT();
+      SYNTAX();
+    case "float":
+      ASSIGNMENT();
+      SYNTAX();
+    case "id":
+      ASSIGNMENT();
+      SYNTAX();
+      break;
+
+    // default:
+    //   Accept = false;
+    //   checkResult();
   }
 };
 const FUNCINPUT = () => {
@@ -129,7 +157,7 @@ const FUNCINPUT = () => {
 const D = () => {
   switch (lookahead) {
     case ",":
-      match(",")
+      match(",");
       VALUE();
       D();
       break;
@@ -142,7 +170,7 @@ const ELSE = () => {
       CONDITION();
       match("play");
       match("{");
-      BASE();
+      SYNTAX();
       match("}");
       ELSE();
       break;
@@ -150,7 +178,7 @@ const ELSE = () => {
       match("noth?");
       match("play");
       match("{");
-      BASE();
+      SYNTAX();
       match("}");
       break;
   }
@@ -297,9 +325,10 @@ const ASSIGNMENT = () => {
     case "id":
       A();
       break;
-    default:
-      Accept = false;
-      checkResult();
+
+    // default:
+    //   Accept = false;
+    //   checkResult();
   }
 };
 const A = () => {
@@ -384,28 +413,28 @@ const OPERATOR = () => {
 const F = () => {
   switch (lookahead) {
     case "id":
-      T()
-      H()
+      T();
+      H();
       break;
     case "number":
-      T()
-      H()
+      T();
+      H();
       break;
     case "[+]":
-      T()
-      H()
+      T();
+      H();
       break;
     case "[-]":
-      T()
-      H()
+      T();
+      H();
       break;
     case "[*]":
-      T()
-      H()
+      T();
+      H();
       break;
     case "[/]":
-      T()
-      H()
+      T();
+      H();
       break;
   }
 };
@@ -413,7 +442,8 @@ const H = () => {
   switch (lookahead) {
     case ",":
       match(",");
-      F();
+      T();
+      H();
       break;
   }
 };
@@ -443,4 +473,4 @@ const T = () => {
   }
 };
 
-module.exports = checkResult;
+module.exports = syntaxCompiler;

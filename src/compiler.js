@@ -1,7 +1,9 @@
 const lexicalReview = require("./lexicalReview");
 
 let tokens = [];
+let codes = [];
 const compile = (program) => {
+  
   let line = [];
   let lineCounter = 0;
   program.map((row) => {
@@ -12,9 +14,17 @@ const compile = (program) => {
         let token = lexicalReview(lexim, lineCounter);
         return token;
       });
+      // console.log(line)
       tokens.push(line.join(" "));
+
+      c = row.map((lexim) => {
+        return lexim;
+      });
+      codes.push(c.join(" "));
     }
+    // console.log(codes);
   });
-  return tokens;
+
+  return { tokens, codes };
 };
 module.exports = compile;
